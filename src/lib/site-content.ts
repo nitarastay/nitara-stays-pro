@@ -8,6 +8,13 @@ export const ADMIN_EMAIL = "nitarastays@gmail.com";
 export type DbReview = { id: string; name: string; quote: string };
 export type DbPhoto = { id: string; section: string; room_id: string | null; category: string; url: string; storage_path: string | null; alt: string };
 export type Hidden = { kind: string; item_key: string };
+export type DbPrice = { room_id: string; price: number };
+
+/** Admin-set price wins; otherwise the built-in price. */
+export function roomPrice(roomId: string, fallback: number, prices: DbPrice[] = []) {
+  const p = prices.find(x => x.room_id === roomId)?.price;
+  return p && p > 0 ? p : fallback;
+}
 
 export const galleryCategories = ["Retreats", "Landscapes", "Experiences", "Food"] as const;
 export type GalleryCat = typeof galleryCategories[number];

@@ -6,7 +6,8 @@ import PageHero from "@/components/PageHero";
 import { retreats } from "@/data/site";
 import { useDocumentMeta } from "@/hooks/useReveal";
 import { supabase } from "@/integrations/supabase/client";
-import { whatsappBookingUrl } from "@/lib/site-content";
+import { roomPrice, whatsappBookingUrl } from "@/lib/site-content";
+import { useSiteContent } from "@/hooks/useSiteContent";
 const snowPeaks = siteMedia["snow-peaks.webp"];
 import { CheckCircle2 } from "lucide-react";
 
@@ -32,7 +33,9 @@ export default function Booking() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const r = retreats.find(x => x.id === retreat)!;
+  const { data: content } = useSiteContent();
+  const rooms = retreats.map(x => ({ ...x, price: roomPrice(x.id, x.price, content?.prices) }));
+  const r = rooms.find(x => x.id === retreat)!;
   const nights = useMemo(() => {
     if (!checkin || !checkout) return 0;
     const d = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
@@ -86,7 +89,7 @@ export default function Booking() {
                 <h2 className="font-serif text-3xl mb-6">Stay Details</h2>
                 <Field label="Retreat">
                   <select value={retreat} onChange={e => setRetreat(e.target.value)} className="input">
-                    {retreats.map(r => <option key={r.id} value={r.id}>{r.name} — ₹{r.price.toLocaleString("en-IN")}/night</option>)}
+                    {rooms.map(r => <option key={r.id} value={r.id}>{r.name} — ₹{r.price.toLocaleString("en-IN")}/night</option>)}
                   </select>
                 </Field>
                 <div className="grid sm:grid-cols-2 gap-5">
