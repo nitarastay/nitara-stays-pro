@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 94%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 0 0% 10%;
+    --primary-foreground: 40 33% 94%;
+
+    --secondary: 40 33% 94%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 40 20% 88%;
+    --muted-foreground: 0 0% 35%;
+
+    --accent: 36 39% 60%;
+    --accent-foreground: 0 0% 10%;
+
+    --gold: 36 39% 60%;
+    --gold-foreground: 0 0% 10%;
+    --ivory: 40 33% 94%;
+    --charcoal: 0 0% 10%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 36 39% 60%;
+
+    --radius: 0.25rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 40 33% 94%;
+    --card: 0 0% 12%;
+    --card-foreground: 40 33% 94%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 40 33% 94%;
+    --primary: 40 33% 94%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 40 33% 94%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 40 10% 70%;
+    --accent: 36 39% 60%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 40 33% 94%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 36 39% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer utilities {
+  .text-gold { color: hsl(var(--gold)); }
+  .bg-gold { background-color: hsl(var(--gold)); }
+  .border-gold { border-color: hsl(var(--gold)); }
+  .bg-charcoal { background-color: hsl(var(--charcoal)); }
+  .text-charcoal { color: hsl(var(--charcoal)); }
+  .bg-ivory { background-color: hsl(var(--ivory)); }
+  .text-ivory { color: hsl(var(--ivory)); }
+
+  .eyebrow {
+    @apply uppercase tracking-[0.3em] text-xs font-medium;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .gold-underline {
+    position: relative;
+  }
+  .gold-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 1px;
+    background-color: hsl(var(--gold));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+  .gold-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 bg-gold text-charcoal text-sm tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 border border-white/80 text-white text-sm tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:bg-white hover:text-charcoal;
+  }
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 bg-charcoal text-ivory text-sm tracking-[0.2em] uppercase font-medium transition-all duration-300 hover:bg-black;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl px-5 md:px-10;
+  }
+}
+
+@keyframes loaderBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+.loader-bar { animation: loaderBar 0.25s ease-out forwards; }
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+.loader-fade { animation: fadeOut 0.2s ease-out 0.25s forwards; }

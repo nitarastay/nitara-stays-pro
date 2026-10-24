@@ -1,0 +1,147 @@
+import { siteMedia } from "@/data/site-media";
+
+export const retreats = [
+  { id: "dhanachuli-house", name: "AAROH", price: 18500, type: "mountain", img: siteMedia["photo-1571896349842-33c89424de2d.webp"], desc: "A heritage stone manor with panoramic Himalayan views and roaring fireplaces." },
+  { id: "forest-terrace", name: "AARUNYA", price: 14500, type: "forest", img: siteMedia["photo-1464822759023-fed622ff2c3b.webp"], desc: "Tucked deep in oak forest with a private terrace overlooking the valley." },
+  { id: "summit-suite", name: "ANANT", price: 24500, type: "premium", img: siteMedia["photo-1506905925346-21bda4d32df4.webp"], desc: "Floor-to-ceiling glass framing the entire snow line of Nanda Devi." },
+  { id: "alpine-chalet", name: "SAANJH", price: 21000, type: "mountain", img: siteMedia["photo-1519681393784-d120267933ba.webp"], desc: "A timber-clad alpine sanctuary built for crisp mornings and slow days." },
+  { id: "valley-retreat", name: "THE AMBER CHAMBER", price: 16500, type: "forest", img: siteMedia["photo-1501854140801-50d01698950b.webp"], desc: "A private cottage suspended above a forested ravine." },
+  { id: "orchard-cottage", name: "VYOM", price: 12500, type: "forest", img: siteMedia["photo-1470770841072-f978cf4d019e.webp"], desc: "Surrounded by apricot and apple orchards, ideal for two." },
+  { id: "ridgeline-studio", name: "The Ridgeline Studio", price: 28000, type: "premium", img: siteMedia["photo-1540541338287-41700207dee6.webp"], desc: "An architectural studio perched on the very edge of the ridge." },
+  { id: "kumaoni-farmhouse", name: "The Kumaoni Farmhouse", price: 11000, type: "mountain", img: siteMedia["photo-1482938289607-e9573fc25ebb.webp"], desc: "A restored Kumaoni farmhouse with stone walls and slate roofs." },
+  { id: "cloud-villa", name: "The Cloud Villa", price: 32000, type: "premium", img: siteMedia["photo-1623625434462-e5e42318ae49.webp"], desc: "Our flagship villa — a private estate above the clouds." },
+];
+
+export const destinations = [
+  {
+    slug: "mukteshwar-temple",
+    name: "Mukteshwar Temple",
+    category: "Sacred",
+    sub: "2,286m",
+    tagline: "A 350-year-old Shiva shrine crowning the Himalayan skyline",
+    img: siteMedia["photo-1518002171953-a080ee817e1f.webp"],
+    facts: { distance: "2 km from Nitara", altitude: "2,286m", season: "Year-round", entry: "Free" },
+    intro: "The Mukteshwar Temple is dedicated to Lord Shiva and stands at the highest point of Mukteshwar, offering panoramic views of the Nanda Devi peak and the surrounding Himalayan range.",
+    body: [
+      "Built over 350 years ago, the temple is a sacred pilgrimage site as well as a natural vantage point. The Chauli ki Jali rock formation is located adjacent to the temple.",
+      "Legend holds that childless couples who pass through the natural rock lattice are blessed with children. The surrounding forest of oak and rhododendron creates an atmosphere of profound stillness.",
+      "Sunrise visits are particularly magical when the peaks glow in shades of gold and rose. Local pandits perform the morning aarti as the first light touches the snow line.",
+      "The walk from Nitara is gentle and forested — a perfect way to begin your day in Mukteshwar.",
+    ],
+    highlights: ["Ancient Shiva shrine", "Panoramic Nanda Devi views", "Chauli ki Jali rock formation", "Sunrise viewpoint", "Forest walks"],
+    gallery: [siteMedia["photo-1518002171953-a080ee817e1f.webp"], siteMedia["photo-1469474968028-56623f02e42e.webp"], siteMedia["photo-1506905925346-21bda4d32df4.webp"]],
+  },
+  {
+    slug: "chauli-ki-jali",
+    name: "Chauli Ki Jali",
+    category: "Adventure",
+    sub: "Rock Face",
+    tagline: "A sacred rock lattice and cliff edge with the Himalayas at your feet",
+    img: siteMedia["photo-1464822759023-fed622ff2c3b.webp"],
+    facts: { distance: "2 km from Nitara", altitude: "2,200m", season: "Oct–Jun", entry: "Free" },
+    intro: "Chauli ki Jali is a natural rock formation with a latticed appearance adjacent to the Mukteshwar Temple complex.",
+    body: [
+      "The name translates roughly to 'net of the she-bear' in Kumaoni. It is considered sacred and is believed to bless childless couples who pass through the narrow rock gap.",
+      "Beyond its spiritual significance, the site offers one of the most dramatic cliff-edge viewpoints in all of Kumaon — a sheer drop into forested valleys with the full arc of the Himalayan range visible on clear days.",
+      "Rock climbing and rappelling are available at this site for adventure seekers, with certified guides operating on weekends and during the high season.",
+      "The sunset views from this point are among the finest in all of Uttarakhand.",
+    ],
+    highlights: ["Natural rock lattice formation", "Sheer cliff viewpoint", "Rock climbing & rappelling", "Sacred site", "Himalayan panorama"],
+    gallery: [siteMedia["photo-1464822759023-fed622ff2c3b.webp"], siteMedia["photo-1519681393784-d120267933ba.webp"], siteMedia["photo-1501854140801-50d01698950b.webp"]],
+  },
+  {
+    slug: "jageshwar-dham",
+    name: "Jageshwar Dham",
+    category: "Heritage",
+    sub: "9th Century",
+    tagline: "A valley of 124 ancient Shiva temples lost in Himalayan deodar forest",
+    img: siteMedia["photo-1545194445-dddb8f4487c6.webp"],
+    facts: { distance: "35 km from Nitara", altitude: "1,870m", season: "Apr–Jun, Sep–Nov", entry: "Free" },
+    intro: "Jageshwar Dham is one of the most significant Shiva pilgrimage sites in India — a complex of 124 ancient temples nestled in a dense deodar cedar forest.",
+    body: [
+      "Dating back to the 7th–12th centuries AD, these temples represent the pinnacle of Nagara style temple architecture in the Himalayas.",
+      "The main shrine houses a naturally formed Shiva lingam and is believed to be one of the twelve Jyotirlingas by some traditions.",
+      "The forest surrounding the temples is protected and home to diverse birdlife. The drive to Jageshwar from Mukteshwar passes through stunning mountain scenery and apple orchards.",
+      "A dawn visit when temple bells echo through the deodars is an unforgettable experience.",
+    ],
+    highlights: ["124 ancient temples", "9th–12th century Nagara architecture", "Sacred deodar forest", "Jyotirlinga shrine", "Archaeological museum nearby"],
+    gallery: [siteMedia["photo-1545194445-dddb8f4487c6.webp"], siteMedia["photo-1470770841072-f978cf4d019e.webp"], siteMedia["photo-1518002171953-a080ee817e1f.webp"]],
+  },
+  {
+    slug: "kasar-devi",
+    name: "Kasar Devi",
+    category: "Spiritual",
+    sub: "Almora",
+    tagline: "A hilltop shrine where Van Allen belts meet Himalayan spirituality",
+    img: siteMedia["photo-1469474968028-56623f02e42e.webp"],
+    facts: { distance: "45 km from Nitara", altitude: "2,116m", season: "Oct–Mar", entry: "Free" },
+    intro: "Kasar Devi is a small but profoundly powerful temple dedicated to Goddess Kasar Devi, perched on a spur of the Kashyap Hill above Almora.",
+    body: [
+      "The site gained global fame in the 1960s and 70s when it became a gathering place for seekers, philosophers and artists including Swami Vivekananda, Bob Dylan, Cat Stevens, and Timothy Leary — earning the area the nickname 'Crank's Ridge.'",
+      "Scientists have noted that the area lies within a Van Allen radiation belt zone similar to Stonehenge and Machu Picchu, which may contribute to its unique energy.",
+      "The views of the snow-capped Himalayan range from here are extraordinarily vast — stretching from Kedarnath to Nepal on clear days.",
+      "The small village below retains an atmosphere of quiet bohemian calm.",
+    ],
+    highlights: ["Ancient Devi shrine", "Van Allen belt energy zone", "Himalayan panorama", "Bohemian cultural history", "Stunning sunrises"],
+    gallery: [siteMedia["photo-1469474968028-56623f02e42e.webp"], siteMedia["photo-1506905925346-21bda4d32df4.webp"], siteMedia["photo-1540541338287-41700207dee6.webp"]],
+  },
+  {
+    slug: "bhalugaad-waterfall",
+    name: "Bhalugaad Waterfall",
+    category: "Nature",
+    sub: "Hidden Falls",
+    tagline: "A hidden cascade tumbling through ancient oak forest into crystal pools",
+    img: siteMedia["photo-1432405972618-c60b0225b8f9.webp"],
+    facts: { distance: "12 km from Nitara", altitude: "1,800m", season: "Jul–Oct", entry: "₹50" },
+    intro: "Bhalugaad Waterfall is one of Mukteshwar's most beautiful natural attractions — a powerful cascade falling approximately 25 metres into a series of crystal-clear pools.",
+    body: [
+      "The trail to the waterfall winds through forests alive with birdcall and, in monsoon season, through meadows of wildflowers.",
+      "The waterfall is most dramatic in the months following the monsoon when water volumes are at their peak and the surrounding forest is at its most lush and green.",
+      "The pools at the base offer refreshing natural bathing spots. Wildlife including leopards has been sighted in the forests surrounding the waterfall, though sightings are rare.",
+      "The trail is moderate and suitable for most fitness levels.",
+    ],
+    highlights: ["25-metre cascade", "Natural rock pools", "Forest wildlife", "Wildflower meadows", "Moderate trek trail"],
+    gallery: [siteMedia["photo-1432405972618-c60b0225b8f9.webp"], siteMedia["photo-1501854140801-50d01698950b.webp"], siteMedia["photo-1464822759023-fed622ff2c3b.webp"]],
+  },
+  {
+    slug: "kainchi-dham",
+    name: "Kainchi Dham",
+    category: "Devotion",
+    sub: "Nainital",
+    tagline: "The ashram of Neem Karoli Baba — where Steve Jobs and Mark Zuckerberg sought wisdom",
+    img: siteMedia["photo-1518002171953-a080ee817e1f.webp"],
+    facts: { distance: "58 km from Nitara", altitude: "1,400m", season: "Year-round", entry: "Free" },
+    intro: "Kainchi Dham is the renowned ashram of the revered saint Neem Karoli Baba, set in a narrow gorge of the Kosi river valley near Bhowali.",
+    body: [
+      "The ashram was established in 1964 and has since become one of the most visited spiritual sites in India — not just for Indian devotees but for seekers from across the world.",
+      "Steve Jobs visited Kainchi Dham in 1974 before founding Apple. Mark Zuckerberg visited on the advice of Jobs himself.",
+      "The ashram's energy is said to be exceptionally powerful, with many visitors reporting profound peace and clarity during their time here.",
+      "The annual Bhandara festival in June draws tens of thousands of devotees. The surrounding valley with its rushing river and forested hillsides creates a naturally beautiful and calming setting.",
+    ],
+    highlights: ["Neem Karoli Baba ashram", "Visited by Steve Jobs & Zuckerberg", "Kosi river valley", "Annual June Bhandara festival", "Profound spiritual energy"],
+    gallery: [siteMedia["photo-1518002171953-a080ee817e1f.webp"], siteMedia["photo-1545194445-dddb8f4487c6.webp"], siteMedia["photo-1470770841072-f978cf4d019e.webp"]],
+  },
+];
+
+export const experiences = [
+  { icon: "🥾", title: "Himalayan Trek", desc: "Guided forest trails through oak and rhododendron, with valley vistas at every turn.", duration: "4 hours", price: "₹3,500" },
+  { icon: "✨", title: "Star Gazing", desc: "Crystal-clear Himalayan skies with telescopes and a trained astronomer.", duration: "2 hours", price: "₹2,500" },
+  { icon: "🍲", title: "Kumaoni Cooking Class", desc: "Farm-to-table session with our chef. Bhatt ki churkani, aloo gutuk, bal mithai.", duration: "3 hours", price: "₹3,000" },
+  { icon: "🌿", title: "Spa & Wellness", desc: "Herbal mountain massage with locally sourced oils, in a glass pavilion.", duration: "90 mins", price: "₹5,000" },
+  { icon: "🏘️", title: "Village Walk", desc: "Authentic Kumaoni village life — homes, looms, orchards, kitchens.", duration: "3 hours", price: "₹2,000" },
+  { icon: "🦅", title: "Bird Watching", desc: "Over 200 Himalayan species — koklass, lammergeier, rosefinches and more.", duration: "Dawn", price: "₹2,500" },
+];
+
+export const testimonials = [
+  { stars: 5, quote: "The most thoughtful luxury we have ever experienced. Every detail — the linens, the food, the silence — has been considered.", name: "Arjun & Meera Khanna", origin: "Delhi", date: "March 2025" },
+  { stars: 5, quote: "I went seeking quiet and found something deeper. Nitara is not a hotel; it is a state of mind.", name: "Priya Venkataraman", origin: "Bengaluru", date: "January 2025" },
+  { stars: 5, quote: "The view from the suite at sunrise is one of the most beautiful things I have ever seen. The team are family.", name: "Rahul Bose", origin: "Mumbai", date: "November 2024" },
+  { stars: 5, quote: "We came for a weekend and stayed a week. There is no other place quite like it in the Indian Himalayas.", name: "Siddharth & Ananya Rao", origin: "Hyderabad", date: "October 2024" },
+];
+
+export const addons = [
+  { id: "transfer", name: "Airport Transfer", price: 2500 },
+  { id: "spa", name: "Spa Treatment", price: 5000 },
+  { id: "dinner", name: "Candlelight Dinner", price: 3500 },
+  { id: "adventure", name: "Adventure Package", price: 4000 },
+];
