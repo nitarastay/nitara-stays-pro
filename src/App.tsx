@@ -14,6 +14,8 @@ import Contact from "./pages/Contact";
 import Booking from "./pages/Booking";
 import DestinationDetail from "./pages/DestinationDetail";
 import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,8 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/booking" element={<Booking />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
