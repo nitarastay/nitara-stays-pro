@@ -18,9 +18,7 @@ describe("Vercel routing", () => {
   it("serves files before falling back to the app for direct page visits", () => {
     expect(vercelConfig.framework).toBe("vite");
     expect(vercelConfig.outputDirectory).toBe("dist");
-    expect(vercelConfig.routes).toEqual([
-      { handle: "filesystem" },
-      { src: "/.*", dest: "/index.html" },
-    ]);
+    // Vercel rewrites run after real files are matched, so images still load.
+    expect(vercelConfig.rewrites).toEqual([{ source: "/(.*)", destination: "/index.html" }]);
   });
 });
