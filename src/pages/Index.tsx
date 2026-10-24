@@ -178,8 +178,8 @@ export default function Index() {
               </div>
             </div>
             <div className="flex items-center gap-4 mt-10">
-              <button onClick={() => setTIndex((tIndex - 1 + testimonials.length) % testimonials.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronLeft size={16} /></button>
-              <button onClick={() => setTIndex((tIndex + 1) % testimonials.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronRight size={16} /></button>
+              <button onClick={() => setTIndex((tIndex - 1 + guestReviews.length) % guestReviews.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronLeft size={16} /></button>
+              <button onClick={() => setTIndex((tIndex + 1) % guestReviews.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronRight size={16} /></button>
               <div className="flex gap-2 ml-4">
                 {guestReviews.map((_, i) => (
                   <button key={i} onClick={() => setTIndex(i)} className={`h-1 transition-all ${i === tIndex ? "w-8 bg-gold" : "w-3 bg-charcoal/20"}`} />
