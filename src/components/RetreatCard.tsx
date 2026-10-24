@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { roomPhotos } from "@/lib/site-content";
+import { roomPhotos, roomPrice } from "@/lib/site-content";
 
-export default function RetreatCard({ r }: { r: { id: string; name: string; price: number; img: string; desc?: string } }) {
+export default function RetreatCard({ r: base }: { r: { id: string; name: string; price: number; img: string; desc?: string } }) {
   const { data } = useSiteContent();
+  const r = { ...base, price: roomPrice(base.id, base.price, data?.prices) };
   const img = data ? roomPhotos(r.id, data.photos, data.hidden)[0]?.src : r.img;
   return (
     <div className="group bg-white overflow-hidden">

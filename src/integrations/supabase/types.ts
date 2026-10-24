@@ -113,6 +113,24 @@ export type Database = {
         }
         Relationships: []
       }
+      room_prices: {
+        Row: {
+          price: number
+          room_id: string
+          updated_at: string
+        }
+        Insert: {
+          price: number
+          room_id: string
+          updated_at?: string
+        }
+        Update: {
+          price?: number
+          room_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_photos: {
         Row: {
           alt: string
