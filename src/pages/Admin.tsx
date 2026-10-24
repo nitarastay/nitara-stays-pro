@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import writeXlsxFile from "write-excel-file";
+import writeXlsxFile from "write-excel-file/browser";
 import type { Session } from "@supabase/supabase-js";
 import { Trash2, Download, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";

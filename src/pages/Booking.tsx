@@ -186,9 +186,10 @@ export default function Booking() {
           <div className="bg-white max-w-md w-full p-10 text-center">
             <CheckCircle2 className="text-gold mx-auto mb-4" size={56} />
             <h3 className="font-serif text-3xl mb-3">Reservation Received</h3>
-            <p className="text-muted-foreground mb-6">A member of our concierge team will contact you within 24 hours.</p>
+            <p className="text-muted-foreground mb-4">Your booking is saved. Please press send in WhatsApp so our team receives your details.</p>
+            <a href={done.wa} target="_blank" rel="noreferrer" className="btn-gold mb-6 inline-flex">Open WhatsApp</a>
             <p className="eyebrow text-gold mb-1">Booking Reference</p>
-            <p className="font-serif text-2xl mb-8">{done}</p>
+            <p className="font-serif text-2xl mb-8">{done.ref}</p>
             <button onClick={() => { setDone(null); setStep(1); }} className="btn-dark">Done</button>
           </div>
         </div>
