@@ -78,9 +78,9 @@ export default function Index() {
             </div>
             <Link to="/destinations" className="hidden md:inline-flex text-xs uppercase tracking-[0.25em] gold-underline items-center gap-2">View All Destinations <ArrowRight size={14} /></Link>
           </div>
-          <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory -mx-5 px-5 md:mx-0 md:px-0">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {retreats.map(r => (
-              <div key={r.id} className="min-w-[280px] sm:min-w-[340px] md:min-w-[380px] snap-start reveal">
+              <div key={r.id} className="reveal">
                 <RetreatCard r={r} />
               </div>
             ))}

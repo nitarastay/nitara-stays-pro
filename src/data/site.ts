@@ -1,15 +1,12 @@
 import { siteMedia } from "@/data/site-media";
 
 export const retreats = [
-  { id: "dhanachuli-house", name: "AAROH", price: 18500, type: "mountain", img: siteMedia["nitara-room-wide.webp"], desc: "A heritage stone manor with panoramic Himalayan views and roaring fireplaces." },
-  { id: "forest-terrace", name: "AARUNYA", price: 14500, type: "forest", img: siteMedia["nitara-room-terrace.webp"], desc: "Tucked deep in oak forest with a private terrace overlooking the valley." },
-  { id: "summit-suite", name: "ANANT", price: 24500, type: "premium", img: siteMedia["nitara-room-interior.webp"], desc: "Floor-to-ceiling glass framing the entire snow line of Nanda Devi." },
-  { id: "alpine-chalet", name: "SAANJH", price: 21000, type: "mountain", img: siteMedia["nitara-room-detail.webp"], desc: "A timber-clad alpine sanctuary built for crisp mornings and slow days." },
-  { id: "valley-retreat", name: "THE AMBER CHAMBER", price: 16500, type: "forest", img: siteMedia["nitara-terrace-day.webp"], desc: "A private cottage suspended above a forested ravine." },
-  { id: "orchard-cottage", name: "VYOM", price: 12500, type: "forest", img: siteMedia["nitara-terrace-night.webp"], desc: "Surrounded by apricot and apple orchards, ideal for two." },
-  { id: "ridgeline-studio", name: "The Ridgeline Studio", price: 28000, type: "premium", img: siteMedia["nitara-terrace-night.webp"], desc: "An architectural studio perched on the very edge of the ridge." },
-  { id: "kumaoni-farmhouse", name: "The Kumaoni Farmhouse", price: 11000, type: "mountain", img: siteMedia["nitara-terrace-day.webp"], desc: "A restored Kumaoni farmhouse with stone walls and slate roofs." },
-  { id: "cloud-villa", name: "The Cloud Villa", price: 32000, type: "premium", img: siteMedia["nitara-room-wide.webp"], desc: "Our flagship villa — a private estate above the clouds." },
+  { id: "dhanachuli-house", name: "Aaroh", price: 18500, type: "mountain", img: siteMedia["nitara-room-wide.webp"], desc: "A heritage stone manor with panoramic Himalayan views and roaring fireplaces." },
+  { id: "forest-terrace", name: "Aarunya", price: 14500, type: "forest", img: siteMedia["nitara-room-terrace.webp"], desc: "Tucked deep in oak forest with a private terrace overlooking the valley." },
+  { id: "summit-suite", name: "Anant", price: 24500, type: "premium", img: siteMedia["nitara-room-interior.webp"], desc: "Floor-to-ceiling glass framing the entire snow line of Nanda Devi." },
+  { id: "alpine-chalet", name: "Saanjh", price: 21000, type: "mountain", img: siteMedia["nitara-room-detail.webp"], desc: "A timber-clad alpine sanctuary built for crisp mornings and slow days." },
+  { id: "valley-retreat", name: "The Amber Chamber", price: 16500, type: "forest", img: siteMedia["nitara-terrace-day.webp"], desc: "A private cottage suspended above a forested ravine." },
+  { id: "orchard-cottage", name: "Vyom", price: 12500, type: "premium", img: siteMedia["nitara-terrace-night.webp"], desc: "Surrounded by apricot and apple orchards, ideal for two." },
 ];
 
 export const destinations = [
@@ -139,9 +136,3 @@ export const testimonials = [
   { stars: 5, quote: "We came for a weekend and stayed a week. There is no other place quite like it in the Indian Himalayas.", name: "Siddharth & Ananya Rao", origin: "Hyderabad", date: "October 2024" },
 ];
 
-export const addons = [
-  { id: "transfer", name: "Airport Transfer", price: 2500 },
-  { id: "spa", name: "Spa Treatment", price: 5000 },
-  { id: "dinner", name: "Candlelight Dinner", price: 3500 },
-  { id: "adventure", name: "Adventure Package", price: 4000 },
-];

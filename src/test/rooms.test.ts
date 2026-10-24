@@ -2,24 +2,21 @@ import { describe, expect, it } from "vitest";
 import { retreats } from "@/data/site";
 import { siteMedia } from "@/data/site-media";
 
-describe("room renaming preserves the existing rooms", () => {
-  const names = ["AAROH", "AARUNYA", "ANANT", "SAANJH", "THE AMBER CHAMBER", "VYOM"];
-  const ids = ["dhanachuli-house", "forest-terrace", "summit-suite", "alpine-chalet", "valley-retreat", "orchard-cottage"];
-  const prices = [18500, 14500, 24500, 21000, 16500, 12500];
-
-  names.forEach((name, index) => {
-    it(`renames ${ids[index]} to ${name} without changing its price`, () => {
-      expect(retreats[index]).toMatchObject({ id: ids[index], name, price: prices[index] });
-    });
+describe("rooms", () => {
+  it("lists exactly the six owner rooms in sentence case", () => {
+    expect(retreats.map(r => r.name)).toEqual(["Aaroh", "Aarunya", "Anant", "Saanjh", "The Amber Chamber", "Vyom"]);
   });
 
-  it("retains all nine existing room entries", () => {
-    expect(retreats).toHaveLength(9);
-    expect(retreats.slice(6).map(room => room.id)).toEqual(["ridgeline-studio", "kumaoni-farmhouse", "cloud-villa"]);
+  it("keeps existing prices", () => {
+    expect(retreats.map(r => r.price)).toEqual([18500, 14500, 24500, 21000, 16500, 12500]);
   });
 
   it("shows real property photography on every room card, never stock photos", () => {
     const realPhotos = new Set(Object.values(siteMedia).filter(u => !/photo-\d{10}/.test(u)));
     retreats.forEach(room => expect(realPhotos.has(room.img)).toBe(true));
+  });
+
+  it("serves images from the site itself, not an external preview host", () => {
+    Object.values(siteMedia).forEach(u => expect(u.startsWith("/media/")).toBe(true));
   });
 });

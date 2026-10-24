@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import PageHero from "@/components/PageHero";
-import { addons, retreats } from "@/data/site";
+import { retreats } from "@/data/site";
 import { useDocumentMeta } from "@/hooks/useReveal";
 import { supabase } from "@/integrations/supabase/client";
 import { whatsappBookingUrl } from "@/lib/site-content";
@@ -27,7 +27,6 @@ export default function Booking() {
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [guests, setGuests] = useState(2);
-  const [picked, setPicked] = useState<string[]>([]);
   const [form, setForm] = useState({ name: "", email: "", phone: "", country: "India", notes: "" });
   const [done, setDone] = useState<{ ref: string; wa: string } | null>(null);
   const [saving, setSaving] = useState(false);
@@ -39,8 +38,7 @@ export default function Booking() {
     const d = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
     return Math.max(0, Math.round(d));
   }, [checkin, checkout]);
-  const addonsTotal = picked.reduce((s, id) => s + (addons.find(a => a.id === id)?.price || 0), 0);
-  const subtotal = nights * r.price + addonsTotal;
+  const subtotal = nights * r.price;
   const tax = Math.round(subtotal * 0.18);
   const total = subtotal + tax;
 
@@ -54,7 +52,7 @@ export default function Booking() {
     setSaving(true); setError("");
     const g = guestSchema.parse(form);
     const ref = "NIT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-    const addonNames = picked.map(p => addons.find(a => a.id === p)?.name).filter(Boolean).join(", ");
+    const addonNames = "";
     const { error: dbError } = await supabase.from("bookings").insert({
       reference: ref, room_id: r.id, room_name: r.name, check_in: checkin, check_out: checkout, guests,
       guest_name: g.name, email: g.email, phone: g.phone, country: g.country, addons: addonNames, notes: g.notes, total,
@@ -109,20 +107,6 @@ export default function Booking() {
                   <Field label="Phone"><input type="tel" className="input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></Field>
                   <Field label="Country"><input className="input" value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} /></Field>
                 </div>
-                <div>
-                  <p className="eyebrow text-gold mb-3">Add to your stay</p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {addons.map(a => {
-                      const on = picked.includes(a.id);
-                      return (
-                        <button key={a.id} onClick={() => setPicked(on ? picked.filter(x => x !== a.id) : [...picked, a.id])} className={`text-left p-4 border transition ${on ? "border-gold bg-gold/5" : "border-charcoal/15 hover:border-gold/50"}`}>
-                          <p className="font-medium">{a.name}</p>
-                          <p className="text-sm text-muted-foreground">₹{a.price.toLocaleString("en-IN")}</p>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
                 <Field label="Special Requests"><textarea rows={4} className="input resize-none" value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></Field>
                 {error && <p className="text-sm text-destructive">{error}</p>}
                 <div className="flex gap-3">
@@ -144,14 +128,12 @@ export default function Booking() {
                     ["Guests", String(guests)],
                     ["Guest", form.name],
                     ["Email", form.email],
-                    ["Add-ons", picked.length ? picked.map(p => addons.find(a => a.id === p)?.name).join(", ") : "—"],
                   ].map(([k, v]) => (
                     <div key={k} className="flex justify-between p-4 text-sm"><span className="text-muted-foreground">{k}</span><span className="font-medium">{v}</span></div>
                   ))}
                 </div>
                 <div className="border border-charcoal/10 p-4 space-y-2 text-sm">
                   <div className="flex justify-between"><span>Stay ({nights} × ₹{r.price.toLocaleString("en-IN")})</span><span>₹{(nights * r.price).toLocaleString("en-IN")}</span></div>
-                  <div className="flex justify-between"><span>Add-ons</span><span>₹{addonsTotal.toLocaleString("en-IN")}</span></div>
                   <div className="flex justify-between"><span>Tax (18%)</span><span>₹{tax.toLocaleString("en-IN")}</span></div>
                   <div className="flex justify-between font-serif text-xl border-t border-charcoal/10 pt-2 mt-2"><span>Total</span><span className="text-gold">₹{total.toLocaleString("en-IN")}</span></div>
                 </div>
