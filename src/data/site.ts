@@ -1,15 +1,15 @@
 import { siteMedia } from "@/data/site-media";
 
 export const retreats = [
-  { id: "dhanachuli-house", name: "AAROH", price: 18500, type: "mountain", img: siteMedia["photo-1571896349842-33c89424de2d.webp"], desc: "A heritage stone manor with panoramic Himalayan views and roaring fireplaces." },
-  { id: "forest-terrace", name: "AARUNYA", price: 14500, type: "forest", img: siteMedia["photo-1464822759023-fed622ff2c3b.webp"], desc: "Tucked deep in oak forest with a private terrace overlooking the valley." },
-  { id: "summit-suite", name: "ANANT", price: 24500, type: "premium", img: siteMedia["photo-1506905925346-21bda4d32df4.webp"], desc: "Floor-to-ceiling glass framing the entire snow line of Nanda Devi." },
-  { id: "alpine-chalet", name: "SAANJH", price: 21000, type: "mountain", img: siteMedia["photo-1519681393784-d120267933ba.webp"], desc: "A timber-clad alpine sanctuary built for crisp mornings and slow days." },
-  { id: "valley-retreat", name: "THE AMBER CHAMBER", price: 16500, type: "forest", img: siteMedia["photo-1501854140801-50d01698950b.webp"], desc: "A private cottage suspended above a forested ravine." },
-  { id: "orchard-cottage", name: "VYOM", price: 12500, type: "forest", img: siteMedia["photo-1470770841072-f978cf4d019e.webp"], desc: "Surrounded by apricot and apple orchards, ideal for two." },
-  { id: "ridgeline-studio", name: "The Ridgeline Studio", price: 28000, type: "premium", img: siteMedia["photo-1540541338287-41700207dee6.webp"], desc: "An architectural studio perched on the very edge of the ridge." },
-  { id: "kumaoni-farmhouse", name: "The Kumaoni Farmhouse", price: 11000, type: "mountain", img: siteMedia["photo-1482938289607-e9573fc25ebb.webp"], desc: "A restored Kumaoni farmhouse with stone walls and slate roofs." },
-  { id: "cloud-villa", name: "The Cloud Villa", price: 32000, type: "premium", img: siteMedia["photo-1623625434462-e5e42318ae49.webp"], desc: "Our flagship villa — a private estate above the clouds." },
+  { id: "dhanachuli-house", name: "AAROH", price: 18500, type: "mountain", img: siteMedia["nitara-room-wide.webp"], desc: "A heritage stone manor with panoramic Himalayan views and roaring fireplaces." },
+  { id: "forest-terrace", name: "AARUNYA", price: 14500, type: "forest", img: siteMedia["nitara-room-terrace.webp"], desc: "Tucked deep in oak forest with a private terrace overlooking the valley." },
+  { id: "summit-suite", name: "ANANT", price: 24500, type: "premium", img: siteMedia["nitara-room-interior.webp"], desc: "Floor-to-ceiling glass framing the entire snow line of Nanda Devi." },
+  { id: "alpine-chalet", name: "SAANJH", price: 21000, type: "mountain", img: siteMedia["nitara-room-detail.webp"], desc: "A timber-clad alpine sanctuary built for crisp mornings and slow days." },
+  { id: "valley-retreat", name: "THE AMBER CHAMBER", price: 16500, type: "forest", img: siteMedia["nitara-terrace-day.webp"], desc: "A private cottage suspended above a forested ravine." },
+  { id: "orchard-cottage", name: "VYOM", price: 12500, type: "forest", img: siteMedia["nitara-terrace-night.webp"], desc: "Surrounded by apricot and apple orchards, ideal for two." },
+  { id: "ridgeline-studio", name: "The Ridgeline Studio", price: 28000, type: "premium", img: siteMedia["nitara-terrace-night.webp"], desc: "An architectural studio perched on the very edge of the ridge." },
+  { id: "kumaoni-farmhouse", name: "The Kumaoni Farmhouse", price: 11000, type: "mountain", img: siteMedia["nitara-terrace-day.webp"], desc: "A restored Kumaoni farmhouse with stone walls and slate roofs." },
+  { id: "cloud-villa", name: "The Cloud Villa", price: 32000, type: "premium", img: siteMedia["nitara-room-wide.webp"], desc: "Our flagship villa — a private estate above the clouds." },
 ];
 
 export const destinations = [

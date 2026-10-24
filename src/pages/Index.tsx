@@ -1,18 +1,17 @@
-import { siteMedia } from "@/data/site-media";
+import { siteMedia, propertyPhotos } from "@/data/site-media";
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, ChevronDown, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, MapPin, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { retreats, destinations, testimonials } from "@/data/site";
+import { retreats, destinations } from "@/data/site";
+import { guestReviews } from "@/data/guest-reviews";
 import RetreatCard from "@/components/RetreatCard";
 import { useDocumentMeta } from "@/hooks/useReveal";
 const sunsetPicnic = siteMedia["sunset-picnic.webp"];
-const terrace = siteMedia["terrace.webp"];
 const valleyView = siteMedia["valley-view.webp"];
 const snowPeaks = siteMedia["snow-peaks.webp"];
-const snowVillage = siteMedia["snow-village.webp"];
-const snowRoof = siteMedia["snow-roof.webp"];
+const nitaraTerraceDay = siteMedia["nitara-terrace-day.webp"];
 
-const galleryImgs = [sunsetPicnic, terrace, snowPeaks, valleyView, snowVillage, snowRoof];
+const galleryImgs = propertyPhotos.map(p => p.src);
 
 export default function Index() {
   useDocumentMeta("Nitara Stays — Where the Peaks Meet Stillness", "Ultra-luxury mountain retreat in Mukteshwar, Uttarakhand. A curated sanctuary above the clouds.");
@@ -23,10 +22,10 @@ export default function Index() {
     return () => window.clearTimeout(timer);
   }, []);
   useEffect(() => {
-    const t = setInterval(() => setTIndex(i => (i + 1) % testimonials.length), 5000);
+    const t = setInterval(() => setTIndex(i => (i + 1) % guestReviews.length), 5000);
     return () => clearInterval(t);
   }, []);
-  const t = testimonials[tIndex];
+  const t = guestReviews[tIndex];
 
   return (
     <>
@@ -170,28 +169,25 @@ export default function Index() {
           <div className="reveal">
             <p className="eyebrow text-gold mb-3">Guest Stories</p>
             <h2 className="font-serif text-4xl md:text-5xl mb-10">Voices from the Mountain</h2>
-            <div className="flex gap-1 mb-6">
-              {Array.from({ length: t.stars }).map((_, i) => <Star key={i} size={16} className="fill-gold text-gold" />)}
-            </div>
             <p className="font-serif italic text-2xl leading-relaxed mb-8">“{t.quote}”</p>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-gold/20 text-gold font-serif text-lg flex items-center justify-center">{t.name.charAt(0)}</div>
               <div>
                 <p className="font-medium">{t.name}</p>
-                <p className="text-sm text-muted-foreground">{t.origin} · {t.date}</p>
+                <p className="text-sm text-muted-foreground">Stayed at Nitara Stays</p>
               </div>
             </div>
             <div className="flex items-center gap-4 mt-10">
-              <button onClick={() => setTIndex((tIndex - 1 + testimonials.length) % testimonials.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronLeft size={16} /></button>
-              <button onClick={() => setTIndex((tIndex + 1) % testimonials.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronRight size={16} /></button>
+              <button onClick={() => setTIndex((tIndex - 1 + guestReviews.length) % guestReviews.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronLeft size={16} /></button>
+              <button onClick={() => setTIndex((tIndex + 1) % guestReviews.length)} className="w-10 h-10 border border-charcoal/30 flex items-center justify-center hover:bg-charcoal hover:text-ivory transition"><ChevronRight size={16} /></button>
               <div className="flex gap-2 ml-4">
-                {testimonials.map((_, i) => (
+                {guestReviews.map((_, i) => (
                   <button key={i} onClick={() => setTIndex(i)} className={`h-1 transition-all ${i === tIndex ? "w-8 bg-gold" : "w-3 bg-charcoal/20"}`} />
                 ))}
               </div>
             </div>
           </div>
-          <img src={terrace} loading="lazy" decoding="async" alt="" className="w-full aspect-[4/5] object-cover reveal" />
+          <img src={nitaraTerraceDay} loading="lazy" decoding="async" alt="" className="w-full aspect-[4/5] object-cover reveal" />
         </div>
       </section>
 

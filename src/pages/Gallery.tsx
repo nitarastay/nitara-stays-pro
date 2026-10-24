@@ -9,19 +9,16 @@ const valleyView = siteMedia["valley-view.webp"];
 const snowPeaks = siteMedia["snow-peaks.webp"];
 const snowVillage = siteMedia["snow-village.webp"];
 const snowRoof = siteMedia["snow-roof.webp"];
-import { retreats } from "@/data/site";
 
 const filters = ["All", "Retreats", "Landscapes", "Experiences", "Food"] as const;
 
 const items: { src: string; alt?: string; cat: typeof filters[number] }[] = [
   ...propertyPhotos,
   { src: sunsetPicnic, cat: "Experiences" },
-  { src: terrace, cat: "Retreats" },
   { src: snowPeaks, cat: "Landscapes" },
   { src: valleyView, cat: "Landscapes" },
   { src: snowVillage, cat: "Landscapes" },
   { src: snowRoof, cat: "Landscapes" },
-  ...retreats.map(r => ({ src: r.img, cat: "Retreats" as const })),
   { src: siteMedia["photo-1414235077428-338989a2e8c0.webp"], cat: "Food" },
   { src: siteMedia["photo-1504674900247-0877df9cc836.webp"], cat: "Food" },
 ];
