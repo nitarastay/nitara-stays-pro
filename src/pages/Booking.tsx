@@ -106,7 +106,7 @@ export default function Booking() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <Field label="Full Name"><input className="input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></Field>
                   <Field label="Email"><input type="email" className="input" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} /></Field>
-                  <Field label="Phone"><input className="input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></Field>
+                  <Field label="Phone"><input type="tel" className="input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></Field>
                   <Field label="Country"><input className="input" value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} /></Field>
                 </div>
                 <div>
@@ -124,9 +124,10 @@ export default function Booking() {
                   </div>
                 </div>
                 <Field label="Special Requests"><textarea rows={4} className="input resize-none" value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></Field>
+                {error && <p className="text-sm text-destructive">{error}</p>}
                 <div className="flex gap-3">
                   <button onClick={() => setStep(1)} className="btn-dark">Back</button>
-                  <button onClick={() => setStep(3)} disabled={!form.name || !form.email} className="btn-gold disabled:opacity-40">Continue</button>
+                  <button onClick={toGuest} className="btn-gold">Continue</button>
                 </div>
               </div>
             )}
@@ -155,9 +156,10 @@ export default function Booking() {
                   <div className="flex justify-between font-serif text-xl border-t border-charcoal/10 pt-2 mt-2"><span>Total</span><span className="text-gold">₹{total.toLocaleString("en-IN")}</span></div>
                 </div>
                 <p className="text-xs text-muted-foreground">No payment required now. Our concierge will confirm and arrange payment securely.</p>
+                {error && <p className="text-sm text-destructive">{error}</p>}
                 <div className="flex gap-3">
                   <button onClick={() => setStep(2)} className="btn-dark">Back</button>
-                  <button onClick={confirm} className="btn-gold">Confirm Reservation</button>
+                  <button onClick={confirm} disabled={saving} className="btn-gold disabled:opacity-40">{saving ? "Sending…" : "Confirm & Send on WhatsApp"}</button>
                 </div>
               </div>
             )}
