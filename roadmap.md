@@ -1,6 +1,6 @@
 # Current tasks
-- [ ] Replace placeholder homepage testimonials with the five supplied guest reviews.
-- [ ] Use supplied property photos in the homepage gallery, retreat cards, and matching property sections.
+- [x] Replace placeholder homepage testimonials with the five supplied guest reviews.
+- [x] Use supplied property photos in the homepage gallery, retreat cards, and matching property sections.
 - [x] Replace the site-wide logo and add Shrey Dwivedi's uploaded portrait.
 - [x] Add the remaining uploaded photos to Gallery and About.
 - [x] Rename the first six existing rooms in supplied order; preserve other room details.
