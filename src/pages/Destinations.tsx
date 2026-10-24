@@ -14,7 +14,7 @@ const filters = [
 ];
 
 export default function Destinations() {
-  useDocumentMeta("Destinations — Nitara Stays", "Explore our nine curated mountain retreats in Mukteshwar.");
+  useDocumentMeta("Destinations — Nitara Stays", "Explore our curated mountain retreats in Mukteshwar.");
   const [f, setF] = useState("all");
   const list = f === "all" ? retreats : retreats.filter(r => r.type === f);
   return (
