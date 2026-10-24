@@ -127,7 +127,7 @@ function Bookings() {
   const exportExcel = async () => {
     const cols = ["Reference", "Stay", "Status", "Room", "Check-in", "Check-out", "Guests", "Name", "Phone", "Email", "Country", "Add-ons", "Notes", "Total (₹)", "Booked on"];
     const rows = list.map(b => [b.reference, stayPeriod(b.check_in, b.check_out, today), b.status, b.room_name, b.check_in, b.check_out, b.guests, b.guest_name, b.phone, b.email, b.country, b.addons, b.notes, b.total, new Date(b.created_at).toLocaleString("en-IN")]);
-    await writeXlsxFile([cols.map(c => ({ value: c, fontWeight: "bold" as const })), ...rows.map(r => r.map(v => ({ value: v as string | number })))], { fileName: `nitara-bookings-${today}.xlsx` });
+    await writeXlsxFile([cols.map(c => ({ value: c, fontWeight: "bold" as const })), ...rows.map(r => r.map(v => ({ value: v as string | number })))]).toFile(`nitara-bookings-${today}.xlsx`);
   };
 
   return (
