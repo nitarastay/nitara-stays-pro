@@ -1,21 +1,37 @@
 import { siteMedia } from "@/data/site-media";
 import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { z } from "zod";
 import PageHero from "@/components/PageHero";
 import { addons, retreats } from "@/data/site";
 import { useDocumentMeta } from "@/hooks/useReveal";
+import { supabase } from "@/integrations/supabase/client";
+import { whatsappBookingUrl } from "@/lib/site-content";
 const snowPeaks = siteMedia["snow-peaks.webp"];
 import { CheckCircle2 } from "lucide-react";
 
+const guestSchema = z.object({
+  name: z.string().trim().min(1, "Please enter your name").max(100),
+  email: z.string().trim().email("Please enter a valid email").max(255),
+  phone: z.string().trim().min(7, "Please enter your phone number").max(30),
+  country: z.string().trim().max(60),
+  notes: z.string().trim().max(1000),
+});
+
 export default function Booking() {
   useDocumentMeta("Reserve — Nitara Stays", "Reserve your sanctuary in Mukteshwar.");
+  const [params] = useSearchParams();
+  const initialRoom = retreats.some(x => x.id === params.get("room")) ? params.get("room")! : retreats[0].id;
   const [step, setStep] = useState(1);
-  const [retreat, setRetreat] = useState(retreats[0].id);
+  const [retreat, setRetreat] = useState(initialRoom);
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [guests, setGuests] = useState(2);
   const [picked, setPicked] = useState<string[]>([]);
   const [form, setForm] = useState({ name: "", email: "", phone: "", country: "India", notes: "" });
-  const [done, setDone] = useState<string | null>(null);
+  const [done, setDone] = useState<{ ref: string; wa: string } | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const r = retreats.find(x => x.id === retreat)!;
   const nights = useMemo(() => {
@@ -28,9 +44,26 @@ export default function Booking() {
   const tax = Math.round(subtotal * 0.18);
   const total = subtotal + tax;
 
-  const confirm = () => {
+  const toGuest = () => {
+    const res = guestSchema.safeParse(form);
+    if (!res.success) { setError(res.error.issues[0].message); return; }
+    setError(""); setStep(3);
+  };
+
+  const confirm = async () => {
+    setSaving(true); setError("");
+    const g = guestSchema.parse(form);
     const ref = "NIT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-    setDone(ref);
+    const addonNames = picked.map(p => addons.find(a => a.id === p)?.name).filter(Boolean).join(", ");
+    const { error: dbError } = await supabase.from("bookings").insert({
+      reference: ref, room_id: r.id, room_name: r.name, check_in: checkin, check_out: checkout, guests,
+      guest_name: g.name, email: g.email, phone: g.phone, country: g.country, addons: addonNames, notes: g.notes, total,
+    });
+    setSaving(false);
+    if (dbError) { setError("We couldn't save your booking. Please try again."); return; }
+    const wa = whatsappBookingUrl({ reference: ref, room: r.name, checkIn: checkin, checkOut: checkout, nights, guests, name: g.name, phone: g.phone, email: g.email, addons: addonNames, notes: g.notes, total });
+    window.open(wa, "_blank");
+    setDone({ ref, wa });
   };
 
   return (
