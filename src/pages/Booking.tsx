@@ -1,21 +1,37 @@
 import { siteMedia } from "@/data/site-media";
 import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { z } from "zod";
 import PageHero from "@/components/PageHero";
 import { addons, retreats } from "@/data/site";
 import { useDocumentMeta } from "@/hooks/useReveal";
+import { supabase } from "@/integrations/supabase/client";
+import { whatsappBookingUrl } from "@/lib/site-content";
 const snowPeaks = siteMedia["snow-peaks.webp"];
 import { CheckCircle2 } from "lucide-react";
 
+const guestSchema = z.object({
+  name: z.string().trim().min(1, "Please enter your name").max(100),
+  email: z.string().trim().email("Please enter a valid email").max(255),
+  phone: z.string().trim().min(7, "Please enter your phone number").max(30),
+  country: z.string().trim().max(60),
+  notes: z.string().trim().max(1000),
+});
+
 export default function Booking() {
   useDocumentMeta("Reserve — Nitara Stays", "Reserve your sanctuary in Mukteshwar.");
+  const [params] = useSearchParams();
+  const initialRoom = retreats.some(x => x.id === params.get("room")) ? params.get("room")! : retreats[0].id;
   const [step, setStep] = useState(1);
-  const [retreat, setRetreat] = useState(retreats[0].id);
+  const [retreat, setRetreat] = useState(initialRoom);
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [guests, setGuests] = useState(2);
   const [picked, setPicked] = useState<string[]>([]);
   const [form, setForm] = useState({ name: "", email: "", phone: "", country: "India", notes: "" });
-  const [done, setDone] = useState<string | null>(null);
+  const [done, setDone] = useState<{ ref: string; wa: string } | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   const r = retreats.find(x => x.id === retreat)!;
   const nights = useMemo(() => {
@@ -28,9 +44,26 @@ export default function Booking() {
   const tax = Math.round(subtotal * 0.18);
   const total = subtotal + tax;
 
-  const confirm = () => {
+  const toGuest = () => {
+    const res = guestSchema.safeParse(form);
+    if (!res.success) { setError(res.error.issues[0].message); return; }
+    setError(""); setStep(3);
+  };
+
+  const confirm = async () => {
+    setSaving(true); setError("");
+    const g = guestSchema.parse(form);
     const ref = "NIT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-    setDone(ref);
+    const addonNames = picked.map(p => addons.find(a => a.id === p)?.name).filter(Boolean).join(", ");
+    const { error: dbError } = await supabase.from("bookings").insert({
+      reference: ref, room_id: r.id, room_name: r.name, check_in: checkin, check_out: checkout, guests,
+      guest_name: g.name, email: g.email, phone: g.phone, country: g.country, addons: addonNames, notes: g.notes, total,
+    });
+    setSaving(false);
+    if (dbError) { setError("We couldn't save your booking. Please try again."); return; }
+    const wa = whatsappBookingUrl({ reference: ref, room: r.name, checkIn: checkin, checkOut: checkout, nights, guests, name: g.name, phone: g.phone, email: g.email, addons: addonNames, notes: g.notes, total });
+    window.open(wa, "_blank");
+    setDone({ ref, wa });
   };
 
   return (
@@ -73,7 +106,7 @@ export default function Booking() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <Field label="Full Name"><input className="input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></Field>
                   <Field label="Email"><input type="email" className="input" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} /></Field>
-                  <Field label="Phone"><input className="input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></Field>
+                  <Field label="Phone"><input type="tel" className="input" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></Field>
                   <Field label="Country"><input className="input" value={form.country} onChange={e => setForm({ ...form, country: e.target.value })} /></Field>
                 </div>
                 <div>
@@ -91,9 +124,10 @@ export default function Booking() {
                   </div>
                 </div>
                 <Field label="Special Requests"><textarea rows={4} className="input resize-none" value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></Field>
+                {error && <p className="text-sm text-destructive">{error}</p>}
                 <div className="flex gap-3">
                   <button onClick={() => setStep(1)} className="btn-dark">Back</button>
-                  <button onClick={() => setStep(3)} disabled={!form.name || !form.email} className="btn-gold disabled:opacity-40">Continue</button>
+                  <button onClick={toGuest} className="btn-gold">Continue</button>
                 </div>
               </div>
             )}
@@ -122,9 +156,10 @@ export default function Booking() {
                   <div className="flex justify-between font-serif text-xl border-t border-charcoal/10 pt-2 mt-2"><span>Total</span><span className="text-gold">₹{total.toLocaleString("en-IN")}</span></div>
                 </div>
                 <p className="text-xs text-muted-foreground">No payment required now. Our concierge will confirm and arrange payment securely.</p>
+                {error && <p className="text-sm text-destructive">{error}</p>}
                 <div className="flex gap-3">
                   <button onClick={() => setStep(2)} className="btn-dark">Back</button>
-                  <button onClick={confirm} className="btn-gold">Confirm Reservation</button>
+                  <button onClick={confirm} disabled={saving} className="btn-gold disabled:opacity-40">{saving ? "Sending…" : "Confirm & Send on WhatsApp"}</button>
                 </div>
               </div>
             )}
@@ -153,9 +188,10 @@ export default function Booking() {
           <div className="bg-white max-w-md w-full p-10 text-center">
             <CheckCircle2 className="text-gold mx-auto mb-4" size={56} />
             <h3 className="font-serif text-3xl mb-3">Reservation Received</h3>
-            <p className="text-muted-foreground mb-6">A member of our concierge team will contact you within 24 hours.</p>
+            <p className="text-muted-foreground mb-4">Your booking is saved. Please press send in WhatsApp so our team receives your details.</p>
+            <a href={done.wa} target="_blank" rel="noreferrer" className="btn-gold mb-6 inline-flex">Open WhatsApp</a>
             <p className="eyebrow text-gold mb-1">Booking Reference</p>
-            <p className="font-serif text-2xl mb-8">{done}</p>
+            <p className="font-serif text-2xl mb-8">{done.ref}</p>
             <button onClick={() => { setDone(null); setStep(1); }} className="btn-dark">Done</button>
           </div>
         </div>

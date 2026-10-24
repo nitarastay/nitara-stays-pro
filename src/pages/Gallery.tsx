@@ -1,30 +1,18 @@
-import { siteMedia, propertyPhotos } from "@/data/site-media";
+import { siteMedia } from "@/data/site-media";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { useDocumentMeta } from "@/hooks/useReveal";
-const sunsetPicnic = siteMedia["sunset-picnic.webp"];
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { builtInGallery, mergeGallery } from "@/lib/site-content";
 const terrace = siteMedia["terrace.webp"];
-const valleyView = siteMedia["valley-view.webp"];
-const snowPeaks = siteMedia["snow-peaks.webp"];
-const snowVillage = siteMedia["snow-village.webp"];
-const snowRoof = siteMedia["snow-roof.webp"];
 
 const filters = ["All", "Retreats", "Landscapes", "Experiences", "Food"] as const;
 
-const items: { src: string; alt?: string; cat: typeof filters[number] }[] = [
-  ...propertyPhotos,
-  { src: sunsetPicnic, cat: "Experiences" },
-  { src: snowPeaks, cat: "Landscapes" },
-  { src: valleyView, cat: "Landscapes" },
-  { src: snowVillage, cat: "Landscapes" },
-  { src: snowRoof, cat: "Landscapes" },
-  { src: siteMedia["photo-1414235077428-338989a2e8c0.webp"], cat: "Food" },
-  { src: siteMedia["photo-1504674900247-0877df9cc836.webp"], cat: "Food" },
-];
-
 export default function Gallery() {
   useDocumentMeta("Gallery — Nitara Stays", "Visual diary of the retreat and the Kumaon Himalayas.");
+  const { data } = useSiteContent();
+  const items = data ? mergeGallery(data.photos, data.hidden) : builtInGallery;
   const [f, setF] = useState<typeof filters[number]>("All");
   const list = f === "All" ? items : items.filter(i => i.cat === f);
   const [open, setOpen] = useState<number | null>(null);

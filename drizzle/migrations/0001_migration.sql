@@ -1,0 +1,3 @@
+create policy "Admins upload site photos" on storage.objects for insert to authenticated with check (bucket_id = 'site-photos' and public.has_role(auth.uid(), 'admin'));
+create policy "Admins read site photos" on storage.objects for select to authenticated using (bucket_id = 'site-photos' and public.has_role(auth.uid(), 'admin'));
+create policy "Admins delete site photos" on storage.objects for delete to authenticated using (bucket_id = 'site-photos' and public.has_role(auth.uid(), 'admin'));
