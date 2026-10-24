@@ -13,3 +13,9 @@ describe("booking rules", () => {
     expect(stayPeriod("2026-11-01", "2026-11-03", "2026-10-24")).toBe("upcoming");
   });
 });
+
+import { roomPrice } from "@/lib/site-content";
+describe("room prices", () => {
+  it("uses admin price when set", () => { expect(roomPrice("a", 18500, [{ room_id: "a", price: 20000 }])).toBe(20000); });
+  it("falls back to built-in price", () => { expect(roomPrice("a", 18500, [{ room_id: "b", price: 9 }])).toBe(18500); });
+});

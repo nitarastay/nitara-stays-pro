@@ -6,7 +6,7 @@ import { Trash2, Download, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { retreats } from "@/data/site";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { ADMIN_EMAIL, galleryCategories, mergeGallery, mergeReviews, roomPhotos, stayPeriod, type StayPeriod } from "@/lib/site-content";
+import { ADMIN_EMAIL, galleryCategories, mergeGallery, mergeReviews, roomPhotos, roomPrice, stayPeriod, type StayPeriod } from "@/lib/site-content";
 import { useDocumentMeta } from "@/hooks/useReveal";
 
 const input = "w-full px-4 py-3 border border-border bg-background outline-none focus:border-gold";
@@ -82,7 +82,38 @@ function Login() {
   );
 }
 
-const tabs = ["Bookings", "Reviews", "Gallery Photos", "Room Photos"] as const;
+const tabs = ["Bookings", "Room Prices", "Reviews", "Gallery Photos", "Room Photos"] as const;
+
+function RoomPrices() {
+  const { data } = useSiteContent();
+  const refresh = useRefresh();
+  const [vals, setVals] = useState<Record<string, string>>({});
+  const [msg, setMsg] = useState("");
+  const save = async (id: string) => {
+    const n = Math.round(Number(vals[id]));
+    if (!Number.isFinite(n) || n <= 0) { setMsg("Enter a price above 0."); return; }
+    const { error } = await supabase.from("room_prices").upsert({ room_id: id, price: n, updated_at: new Date().toISOString() });
+    setMsg(error ? "Could not save price." : "Price saved.");
+    if (!error) { setVals(v => { const c = { ...v }; delete c[id]; return c; }); refresh(); }
+  };
+  return (
+    <div className="bg-white p-6 space-y-4">
+      <p className="text-sm text-muted-foreground">Price per night, shown on room cards and used for booking totals.</p>
+      {retreats.map(r => {
+        const current = roomPrice(r.id, r.price, data?.prices);
+        return (
+          <div key={r.id} className="flex flex-wrap items-center gap-3 border-b border-border pb-4">
+            <p className="font-medium w-48">{r.name}</p>
+            <p className="text-sm text-muted-foreground w-32">Now ₹{current.toLocaleString("en-IN")}</p>
+            <input className={`${input} !w-40 !py-2`} type="number" min={1} placeholder={String(current)} value={vals[r.id] ?? ""} onChange={e => setVals(v => ({ ...v, [r.id]: e.target.value }))} aria-label={`New price for ${r.name}`} />
+            <button className="btn-gold !py-2" disabled={!vals[r.id]} onClick={() => save(r.id)}>Save</button>
+          </div>
+        );
+      })}
+      {msg && <p className="text-sm">{msg}</p>}
+    </div>
+  );
+}
 
 function Dashboard({ email }: { email: string }) {
   const [tab, setTab] = useState<typeof tabs[number]>("Bookings");
@@ -101,6 +132,7 @@ function Dashboard({ email }: { email: string }) {
         {tab === "Reviews" && <Reviews />}
         {tab === "Gallery Photos" && <GalleryPhotos />}
         {tab === "Room Photos" && <RoomPhotos />}
+        {tab === "Room Prices" && <RoomPrices />}
       </div>
     </section>
   );
