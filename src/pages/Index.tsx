@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { retreats, destinations } from "@/data/site";
-import { guestReviews } from "@/data/guest-reviews";
+import { mergeReviews } from "@/lib/site-content";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import RetreatCard from "@/components/RetreatCard";
 import { useDocumentMeta } from "@/hooks/useReveal";
 const sunsetPicnic = siteMedia["sunset-picnic.webp"];
@@ -15,17 +16,21 @@ const galleryImgs = propertyPhotos.map(p => p.src);
 
 export default function Index() {
   useDocumentMeta("Nitara Stays — Where the Peaks Meet Stillness", "Ultra-luxury mountain retreat in Mukteshwar, Uttarakhand. A curated sanctuary above the clouds.");
+  const { data: content } = useSiteContent();
+  const merged = mergeReviews(content?.reviews ?? [], content?.hidden ?? []);
+  const guestReviews = merged.length ? merged : [{ key: "none", name: "Nitara Stays", quote: "Guest stories coming soon.", builtIn: true }];
   const [tIndex, setTIndex] = useState(0);
   const [videoReady, setVideoReady] = useState(false);
   useEffect(() => {
     const timer = window.setTimeout(() => setVideoReady(true), 1800);
     return () => window.clearTimeout(timer);
   }, []);
+  const count = guestReviews.length;
   useEffect(() => {
-    const t = setInterval(() => setTIndex(i => (i + 1) % guestReviews.length), 5000);
+    const t = setInterval(() => setTIndex(i => (i + 1) % count), 5000);
     return () => clearInterval(t);
-  }, []);
-  const t = guestReviews[tIndex];
+  }, [count]);
+  const t = guestReviews[tIndex % count];
 
   return (
     <>
